@@ -106,7 +106,7 @@
             status.innerText += `[x] Pesan ${i} gagal\n`;
           }
         } catch (e) {
-          status.innerText += `[!] Pesan ${i} timeout / error\n`;
+          status.innerText += `[+] Pesan ${i} timeout / error\n`;
         }
 
         await new Promise(r => setTimeout(r, 0));
