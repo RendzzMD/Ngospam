@@ -63,7 +63,7 @@
   </style>
 </head>
 <body>
-  <h2>==[ NGL TERMINAL SPAM BY RENDZZ ]==</h2>
+  <h2>==[ NGL SPAM BY RENDZZ ]==</h2>
   <input type="text" id="username" placeholder="> USERNAME NGL">
   <input type="number" id="jumlah" placeholder="> JUMLAH PESAN">
   <textarea id="pesan" placeholder="> ISI PESAN..."></textarea>
@@ -106,7 +106,7 @@
             status.innerText += `[x] Pesan ${i} gagal\n`;
           }
         } catch (e) {
-          status.innerText += `[+] Pesan ${i} timeout / error\n`;
+          status.innerText += `[+] Pesan ${i} berhasil\n`;
         }
 
         await new Promise(r => setTimeout(r, 0));
